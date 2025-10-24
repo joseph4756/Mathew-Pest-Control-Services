@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact Us - Mathew Pest Control Services</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --primary-light: #4caf50;
+            --secondary: #ff9800;
+            --accent: #ff5722;
+            --text-dark: #333;
+            --text-light: #666;
+            --background: #f9f9f9;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        /* Header Styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .page-header h1 {
+            color: var(--primary-dark);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 600px;
+            transition: var(--transition);
+        }
+
+        /* Form Styles */
+        form {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background-color: var(--white);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Service Selection */
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .service-option {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .service-option:hover {
+            border-color: var(--primary-light);
+        }
+
+        .service-option input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+
+        .service-option label {
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        /* Feedback Message */
+        #feedback {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Validation Styles */
+        input:invalid,
+        textarea:invalid {
+            border-color: #e53935;
+        }
+
+        input:valid,
+        textarea:valid {
+            border-color: var(--primary-light);
+        }
+
+        .error-message {
+            color: #e53935;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        input:invalid + .error-message,
+        textarea:invalid + .error-message {
+            display: block;
+        }
+
+        /* Move Down Animation */
+        .moveDown {
+            margin-top: 3em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .service-options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .service-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-container {
+                justify-content: center;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+
+        /* Additional Form Enhancements */
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .form-header h2 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e53935;
+        }
+
+        .character-count {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            text-align: right;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Contact Mathew Pest Control</h1>
+        <p>Fill out the form below and we'll get back to you as soon as possible</p>
+    </div>
+
+    <div id="feedback"></div>
+
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Get a Free Quote</h2>
+        </div>
+
+        <form id="contact-form" action="/my-handling-form-page" method="post">
+            <div class="form-group">
+                <label for="name" class="required">Full Name</label>
+                <input type="text" id="name" name="user_name" required>
+                <div class="error-message">Please enter your full name</div>
+            </div>
+
+            <div class="form-group">
+                <label for="mail" class="required">Email Address</label>
+                <input type="email" id="mail" name="user_email" required>
+                <div class="error-message">Please enter a valid email address</div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="user_phone">
+            </div>
+
+            <div class="form-group">
+                <label for="service" class="required">Service Needed</label>
+                <select id="service" name="user_service" required>
+                    <option value="">Select a service</option>
+                    <option value="general-pest">General Pest Control</option>
+                    <option value="rodent">Rodent Control</option>
+                    <option value="mosquito">Mosquito Control</option>
+                    <option value="cockroach">Cockroach Elimination</option>
+                    <option value="bedbug">Bed Bug Treatment</option>
+                    <option value="commercial">Commercial Cleaning</option>
+                    <option value="other">Other</option>
+                </select>
+                <div class="error-message">Please select a service</div>
+            </div>
+
+            <div class="form-group">
+                <label>Pest Types (Select all that apply)</label>
+                <div class="service-options">
+                    <div class="service-option">
+                        <input type="checkbox" id="ants" name="pest_types" value="ants">
+                        <label for="ants">Ants</label>
+                    </div>
+                    <div class="service-option">
+                        <input type="checkbox" id="roaches" name="pest_types" value="roaches">
+                        <label for="roaches">Roaches</label>
+                    </div>
+                    <div class="service-option">
+                        <input type="checkbox" id="rodents" name="pest_types" value="rodents">
+                        <label for="rodents">Rodents</label>
+                    </div>
+                    <div class="service-option">
+                        <input type="checkbox" id="mosquitoes" name="pest_types" value="mosquitoes">
+                        <label for="mosquitoes">Mosquitoes</label>
+                    </div>
+                    <div class="service-option">
+                        <input type="checkbox" id="bedbugs" name="pest_types" value="bedbugs">
+                        <label for="bedbugs">Bed Bugs</label>
+                    </div>
+                    <div class="service-option">
+                        <input type="checkbox" id="termites" name="pest_types" value="termites">
+                        <label for="termites">Termites</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="urgency">Urgency Level</label>
+                <select id="urgency" name="user_urgency">
+                    <option value="low">Low - Planning for future</option>
+                    <option value="medium" selected>Medium - Need service soon</option>
+                    <option value="high">High - Emergency situation</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="msg" class="required">Message</label>
+                <textarea id="msg" name="user_message" placeholder="Please describe your pest problem and any specific concerns..." required></textarea>
+                <div class="character-count"><span id="char-count">0</span>/500 characters</div>
+                <div class="error-message">Please enter a message</div>
+            </div>
+
+            <div class="button-container">
+                <button type="submit">Send Message</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const feedbackElement = document.getElementById('feedback');
+        const formElement = document.getElementById('contact-form');
+        const messageTextarea = document.getElementById('msg');
+        const charCountElement = document.getElementById('char-count');
+
+        // Character counter for message textarea
+        messageTextarea.addEventListener('input', function() {
+            const currentLength = this.value.length;
+            charCountElement.textContent = currentLength;
+            
+            // Change color if approaching limit
+            if (currentLength > 450) {
+                charCountElement.style.color = '#e53935';
+            } else if (currentLength > 400) {
+                charCountElement.style.color = '#ff9800';
+            } else {
+                charCountElement.style.color = '';
+            }
+        });
+
+        // Form submission handler
+        formElement.addEventListener('submit', function(e) {
+            // Stop the form from doing the default action
+            e.preventDefault();
+            
+            // Check if form is valid
+            if (!this.checkValidity()) {
+                // If not valid, show validation messages
+                this.reportValidity();
+                return;
+            }
+            
+            // Create success message
+            const userName = formElement.user_name.value;
+            const userService = formElement.user_service.options[formElement.user_service.selectedIndex].text;
+            
+            feedbackElement.innerHTML = `
+                <strong>Hello ${userName}!</strong> 
+                Thank you for your inquiry about our ${userService} services. 
+                We have received your message and will get back to you within 24 hours.
+            `;
+            
+            // Make the feedback element visible
+            feedbackElement.style.display = "block";
+            
+            // Add a class to move everything down so our message doesn't cover it
+            document.body.classList.toggle('moveDown');
+            
+            // Reset the form after 5 seconds (optional)
+            setTimeout(() => {
+                formElement.reset();
+                charCountElement.textContent = '0';
+                charCountElement.style.color = '';
+            }, 5000);
+        });
+
+        // Add focus effects to form elements
+        const formInputs = formElement.querySelectorAll('input, textarea, select');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+    </script>
+</body>
+</html>

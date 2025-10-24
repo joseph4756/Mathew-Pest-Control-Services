@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modern Card Component</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --primary-light: #4caf50;
+            --secondary: #ff9800;
+            --accent: #ff5722;
+            --text-dark: #333;
+            --text-light: #666;
+            --background: #f5f7fa;
+            --white: #ffffff;
+            --light-gray: #f0f0f0;
+            --medium-gray: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Card Container */
+        .card-container {
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            margin-bottom: 1.5rem;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .card-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            padding-top: 1rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .card-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Card Footer with Buttons */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background-color: var(--light-gray);
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .card-button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-button i {
+            margin-right: 6px;
+        }
+
+        .view-button {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .view-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .edit-button {
+            background-color: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .edit-button:hover {
+            background-color: var(--white);
+            border-color: var(--primary-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Multiple Cards Layout */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 2rem;
+        }
+
+        /* Card Variations */
+        .card-popular .card-badge {
+            background-color: var(--secondary);
+        }
+
+        .card-new .card-badge {
+            background-color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+
+        /* Demo Section */
+        .demo-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .demo-section h1 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .demo-section p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-section">
+        <h1>Modern Card Components</h1>
+        <p>Beautiful, responsive card designs with smooth interactions</p>
+    </div>
+
+    <!-- Single Card Example -->
+    <div class="card-container">
+        <article class="card">
+            <div class="card-image">
+                <img src="https://picsum.photos/400/300?random=1" alt="Card image">
+                <div class="card-badge">Featured</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Professional Pest Control</h3>
+                <p class="card-text">
+                    This is a wider card with supporting text below as a natural lead-in to additional content. 
+                    This content is a little bit longer and provides more context about our services.
+                </p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">MP</div>
+                        <span>Mathew Pest Control</span>
+                    </div>
+                    <div class="card-date">May 15, 2023</div>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <button class="card-button view-button">
+                    <i>👁️</i> View
+                </button>
+                <button class="card-button edit-button">
+                    <i>✏️</i> Edit
+                </button>
+            </footer>
+        </article>
+    </div>
+
+    <!-- Multiple Cards Grid (Optional) -->
+    <div class="cards-grid">
+        <article class="card card-popular">
+            <div class="card-image">
+                <img src="https://picsum.photos/400/300?random=2" alt="Card image">
+                <div class="card-badge">Popular</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Residential Services</h3>
+                <p class="card-text">
+                    Keep your home pest-free with our comprehensive residential pest control solutions.
+                </p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">MP</div>
+                        <span>Mathew Pest Control</span>
+                    </div>
+                    <div class="card-date">Apr 28, 2023</div>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <button class="card-button view-button">
+                    <i>👁️</i> View
+                </button>
+                <button class="card-button edit-button">
+                    <i>✏️</i> Edit
+                </button>
+            </footer>
+        </article>
+
+        <article class="card card-new">
+            <div class="card-image">
+                <img src="https://picsum.photos/400/300?random=3" alt="Card image">
+                <div class="card-badge">New</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Commercial Solutions</h3>
+                <p class="card-text">
+                    Protect your business with our specialized commercial pest management services.
+                </p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">MP</div>
+                        <span>Mathew Pest Control</span>
+                    </div>
+                    <div class="card-date">Jun 2, 2023</div>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <button class="card-button view-button">
+                    <i>👁️</i> View
+                </button>
+                <button class="card-button edit-button">
+                    <i>✏️</i> Edit
+                </button>
+            </footer>
+        </article>
+    </div>
+
+    <script>
+        // Add interactive functionality to cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            const buttons = document.querySelectorAll('.card-button');
+            
+            // Add click effects to buttons
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    // Add ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    // Remove ripple after animation
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                    
+                    // Show alert for demo purposes
+                    const action = this.classList.contains('view-button') ? 'View' : 'Edit';
+                    alert(`${action} action triggered!`);
+                });
+            });
+            
+            // Add click to entire card (except buttons)
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.card-button')) {
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
